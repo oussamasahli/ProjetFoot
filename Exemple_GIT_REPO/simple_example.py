@@ -1,14 +1,16 @@
 from soccersimulator import SoccerTeam, Simulation, show_simu, Strategy
-from strategies  import RandomStrategy
+from strategies  import RandomStrat
 
 
 ## Creation d'une equipe
 pyteam = SoccerTeam(name="PyTeam")
-thon = SoccerTeam(name="ThonTeam")
+random = SoccerTeam(name="randomTeam")
 pyteam.add("PyPlayer",Strategy()) #Strategie qui ne fait rien
-thon.add("ThonPlayer",RandomStrategy())   #Strategie aleatoire
+random.add("RandomStrat",RandomStrat())   #Strategie aleatoire
+random.add("RandomStrat",RandomStrat())
+random.add("RandomStrat",RandomStrat())
 
 #Creation d'une partie
-simu = Simulation(pyteam,thon)
+simu = Simulation(pyteam,random)
 #Jouer et afficher la partie
 show_simu(simu)
