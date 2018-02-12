@@ -1,5 +1,4 @@
 from soccersimulator import Vector2D, SoccerState, SoccerAction
-from soccersimulator import SoccerTeam, Player
 from soccersimulator import Strategy
 from soccersimulator.settings import *
 from tools import ToolBox
@@ -40,11 +39,73 @@ class FonceurplayerNV1(Strategy):
  		    #Quand il peut on retourne le soccer action prenant"
  		    #le vecteur de sa postion courante au but"
         else:
-            return SoccerAction(tools.VecPosBall(30, maxPlayerAcceleration))
+            return SoccerAction(tools.VecPosBall(15, maxPlayerAcceleration))
             #vecteur joueur -> ballon predit"
             
         
 class FonceurplayerNV1optimal(FonceurplayerNV1):
 	
 	def __init__(self):
-		super().__init__(0.65)
+		super().__init__(0.64)
+
+
+class GoalplayerNV0(Strategy):
+
+    # Version amelioré du joueur fonceur." 
+    # S'il peut tirer il le fait, sinon il se rapproche de la balle
+
+    def __init__(self):
+        Strategy.__init__(self,"Goalnv0")
+        self.acceleration = 1
+        
+    def compute_strategy(self,state,id_team,id_player):
+        
+        tools = ToolBox(state,id_team,id_player)   
+
+        distance = tools.distance_cages_ballon(maxBallAcceleration)
+
+        if (distance < 60):
+            if(tools.PeutTirer()):
+
+                return SoccerAction(shoot = tools.VecPosGoal(maxBallAcceleration*self.acceleration))
+                #Quand il peut on retourne le soccer action"
+                #le vecteur quelconque"
+            else:
+                return SoccerAction(tools.VecPosBall(10, maxPlayerAcceleration))
+                 #vecteur goal -> ballon predit"
+
+        else:
+        	if (tools.estAuxCages()):
+        		return
+        	
+        	return SoccerAction(tools.Retour_aux_cages(maxPlayerAcceleration))
+            #Revient aux cages
+
+class DefenseplayerNV0(Strategy):
+
+    # Version amelioré du joueur fonceur." 
+    # S'il peut tirer il le fait, sinon il se rapproche de la balle
+
+    def __init__(self):
+        Strategy.__init__(self,"Goalnv0")
+        self.acceleration = 2
+        
+    def compute_strategy(self,state,id_team,id_player):
+        
+        tools = ToolBox(state,id_team,id_player) 
+
+        if (((id_team==1) and (tools.PosBall().x <= GAME_WIDTH/2))
+            | ((id_team==2) and (tools.PosBall().x >= GAME_WIDTH/2))):
+            
+            print (tools.PosBall().x)
+
+            if(tools.PeutTirer()):
+
+                return SoccerAction(shoot = tools.VecPosGoal(maxBallAcceleration*self.acceleration))
+                #Quand il peut on retourne le soccer action prenant"
+                #le vecteur quelconque"
+            else:
+            	#vecteur goal -> ballon predit
+            	return SoccerAction(tools.VecPosBall(30, maxPlayerAcceleration))
+            	
+            	
