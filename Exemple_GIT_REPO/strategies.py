@@ -36,7 +36,7 @@ class FonceurplayerNV1(Strategy):
         
         if tools.PeutTirer(): 
             return SoccerAction(shoot = tools.VecPosGoal(maxBallAcceleration*self.acceleration))
- 		    #Quand il peut on retourne le soccer action prenant"
+ 		    #Quand il peut on retourne le soccer action"
  		    #le vecteur de sa postion courante au but"
         else:
             return SoccerAction(tools.VecPosBall(15, maxPlayerAcceleration))
@@ -51,8 +51,8 @@ class FonceurplayerNV1optimal(FonceurplayerNV1):
 
 class GoalplayerNV0(Strategy):
 
-    # Version amelioré du joueur fonceur." 
-    # S'il peut tirer il le fait, sinon il se rapproche de la balle
+	# Goal, il fonce sur la balle quand elle rentre dans sa zone et la shoot quand il peut
+	# Sinon il revient au cage. S'il s'y trouve deja ne rien faire.  
 
     def __init__(self):
         Strategy.__init__(self,"Goalnv0")
@@ -69,7 +69,7 @@ class GoalplayerNV0(Strategy):
 
                 return SoccerAction(shoot = tools.VecPosGoal(maxBallAcceleration*self.acceleration))
                 #Quand il peut on retourne le soccer action"
-                #le vecteur quelconque"
+
             else:
                 return SoccerAction(tools.VecPosBall(10, maxPlayerAcceleration))
                  #vecteur goal -> ballon predit"
@@ -83,8 +83,6 @@ class GoalplayerNV0(Strategy):
 
 class DefenseplayerNV0(Strategy):
 
-    # Version amelioré du joueur fonceur." 
-    # S'il peut tirer il le fait, sinon il se rapproche de la balle
 
     def __init__(self):
         Strategy.__init__(self,"Goalnv0")
@@ -96,16 +94,11 @@ class DefenseplayerNV0(Strategy):
 
         if (((id_team==1) and (tools.PosBall().x <= GAME_WIDTH/2))
             | ((id_team==2) and (tools.PosBall().x >= GAME_WIDTH/2))):
-            
-            print (tools.PosBall().x)
+            #Permet de definir la zone de defense suivant l'id de l'équipe
 
             if(tools.PeutTirer()):
-
                 return SoccerAction(shoot = tools.VecPosGoal(maxBallAcceleration*self.acceleration))
-                #Quand il peut on retourne le soccer action prenant"
-                #le vecteur quelconque"
             else:
-            	#vecteur goal -> ballon predit
             	return SoccerAction(tools.VecPosBall(30, maxPlayerAcceleration))
             	
             	
