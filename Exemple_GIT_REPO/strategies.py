@@ -52,7 +52,7 @@ class FonceurplayerNV1optimal(FonceurplayerNV1):
 class GoalplayerNV0(Strategy):
 
 	# Goal, il fonce sur la balle quand elle rentre dans sa zone et la shoot quand il peut
-	# Sinon il revient au cage. S'il s'y trouve deja ne rien faire.  
+	# Sinon il revient a la cage. S'il s'y trouve deja ne rien faire.  
 
     def __init__(self):
         Strategy.__init__(self,"Goalnv0")
@@ -62,7 +62,7 @@ class GoalplayerNV0(Strategy):
         
         tools = ToolBox(state,id_team,id_player)   
 
-        distance = tools.distance_cages_ballon(maxBallAcceleration)
+        distance = tools.distance_cage_ballon(maxBallAcceleration)
 
         if (distance < 60):
             if(tools.PeutTirer()):
@@ -75,11 +75,11 @@ class GoalplayerNV0(Strategy):
                  #vecteur goal -> ballon predit"
 
         else:
-        	if (tools.estAuxCages()):
+        	if (tools.estDansCage()):
         		return
         	
-        	return SoccerAction(tools.Retour_aux_cages(maxPlayerAcceleration))
-            #Revient aux cages
+        	return SoccerAction(tools.Retour_cage(maxPlayerAcceleration))
+            #Revient dans la cage
 
 class DefenseplayerNV0(Strategy):
 

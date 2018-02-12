@@ -67,7 +67,7 @@ class ToolBox(object):
         
     " distance courante du milieu des cages au ballon "
     
-    def distance_cages_ballon(self, acceleration):
+    def distance_cage_ballon(self, acceleration):
     	return self.PosBall().distance(v = self.VecGoal_to_Ball(acceleration))
 
 
@@ -80,13 +80,13 @@ class ToolBox(object):
         return pos_ball.distance(pos_player) < PLAYER_RADIUS + BALL_RADIUS
 
     
-    def Retour_aux_cages(self, norm_acc = None):
+    def Retour_cage(self, norm_acc = None):
         target = 0 if self.id_team == 1 else 2
         pos_goal = Vector2D((target)*GAME_WIDTH, GAME_HEIGHT/2)
         return pos_goal - self.PosJoueur()
     
     
-    def estAuxCages(self, norm_acc = None):
+    def estDansCage(self, norm_acc = None):
     
     	coordx= self.PosJoueur().x
     	coordy= self.PosJoueur().y
