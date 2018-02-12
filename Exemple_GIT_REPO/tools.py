@@ -55,7 +55,7 @@ class ToolBox(object):
     " retourne le vecteur ballon vers cage"
         
     def VecGoal_to_Ball(self, norm_acc = None):
-        #target definie quelles est la cage correspondante
+        #target definie quelle est la cage correspondante
 
         target = 0 if self.id_team == 1 else 1
         pos_goal = Vector2D((target)*GAME_WIDTH, GAME_HEIGHT/2)
