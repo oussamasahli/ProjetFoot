@@ -93,7 +93,7 @@ class GoalplayerNV0(Strategy):
 
         distance = tools.distance_cage_ballon(maxBallAcceleration)
 
-        if (distance < 60):
+        if (distance < 80):
             if(tools.PeutTirer()):
 
                 return SoccerAction(shoot = tools.VecPosGoal(maxBallAcceleration*self.acceleration))
