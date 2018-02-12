@@ -81,7 +81,7 @@ class ToolBox(object):
 
     
     def Retour_cage(self, norm_acc = None):
-        target = 0 if self.id_team == 1 else 2
+        target = 0 if self.id_team == 1 else 1
         pos_goal = Vector2D((target)*GAME_WIDTH, GAME_HEIGHT/2)
         return pos_goal - self.PosJoueur()
     
@@ -91,7 +91,7 @@ class ToolBox(object):
     	coordx= self.PosJoueur().x
     	coordy= self.PosJoueur().y
     
-    	target = 0 if self.id_team == 1 else 2
+    	target = 0 if self.id_team == 1 else 1
     	if((((target == 0)and (coordx<=5))|
     	((target == 1) and(coordx>145))) 
     	and (coordy<=50 and coordy>=40)):
@@ -108,3 +108,23 @@ class ToolBox(object):
         
         return  Vector2D(angle = (1 - self.id_team) * math.pi, norm = norm_acc)
     
+
+    def get_ennemie(self):
+        ennemies = [self.state.player_state(idteam, idplayer).position for idteam, idplayer in self.state.players if idteam != self.id_team]
+        return ennemies
+
+    def estDansZone(self):
+
+        ennemies = self.get_ennemie()
+
+        for players in ennemies:
+            if (players.distance(self.PosJoueur())<30):
+                return True
+
+        return False
+        
+
+
+
+
+

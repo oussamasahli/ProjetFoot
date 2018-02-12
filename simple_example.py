@@ -1,13 +1,14 @@
 from soccersimulator import SoccerTeam, Simulation, show_simu, Strategy
-from strategies  import FonceurplayerNV0, FonceurplayerNV1, FonceurplayerNV1optimal, GoalplayerNV0, DefenseplayerNV0
+from footIA.strategies  import FonceurplayerNV1optimal, dribleurplayerNV0, RandomStrat
 
 
 ## Creation d'une equipe
 pyteam = SoccerTeam(name="PyTeam")
+pyteam.add("Nul", Strategy())
 fonceur = SoccerTeam(name="fonceurStratTeam")
-fonceur.add("i-Fonceur",FonceurplayerNV1optimal())
+fonceur.add("i-Fonceur",dribleurplayerNV0())
 
-pyteam.add("Goal", GoalplayerNV0())
+#pyteam.add("Goal", RandomStrat())
 
 
 #Creation d'une partie
