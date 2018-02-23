@@ -143,6 +143,8 @@ class Comportement(ProxyObj):
         raise(NotImplementedError)
     def returnToCamp(self):
         raise(NotImplementedError)
+    def passToMostCloseMate(self):
+        raise(NotImplementedError)
 
 def get_random_vec():
     return Vector2D.create_random(-1,1)
