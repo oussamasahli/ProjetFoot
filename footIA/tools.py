@@ -17,6 +17,9 @@ class ToolBox(ProxyObj):
         super(ToolBox,self).__init__(state)
         self.id_team = id_team
         self.id_player = id_player
+    @property
+    def myTeam(self):
+        return self.id_team
     @property        
     def playerPos(self):
         return self.player_state(self.id_team, self.id_player).position
@@ -52,8 +55,18 @@ class ToolBox(ProxyObj):
         return opp
     @property
     def get_mate(self):
-        mate = [self.player_state(idteam,idplayer).position for idteam,idplayer in self.players if idteam == self.id_team]
+        mate = [self.player_state(idteam,idplayer).position for idteam,idplayer in self.players if (idteam == self.id_team)]
         return mate
+    @property    
+    def mateMostCloseDistance(self):
+        mates= self.get_mate
+        DistMin = GAME_WIDTH*2
+        for mate in mates:
+            if self.playerPos!=mate:
+                if self.playerPos.distance(mate)<DistMin:
+                    DistMin=self.playerPos.distance(mate)
+        return DistMin
+
 
 ########################################################################################################
 # Boolean Function
@@ -128,3 +141,11 @@ class Comportement(ProxyObj):
         raise(NotImplementedError)
     def returnToGial(self):
         raise(NotImplementedError)
+    def returnToCamp(self):
+        raise(NotImplementedError)
+
+def get_random_vec():
+    return Vector2D.create_random(-1,1)
+
+def get_random_SoccerAction():
+    return SoccerAction(get_random_vec(),get_random_vec())

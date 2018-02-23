@@ -3,17 +3,17 @@ from .strats import *
 from .tools import *
 
 def get_team(nb_players):
-	myteam = SoccerTeam(name="MaTeam")
+	myteam = SoccerTeam(name="SebOuss")
 	if nb_players == 1:
-		myteam.add("Joueur " ,dribleurplayerNV0())
+		myteam.add("Versatile " ,MultipurposeStrategy())
 	if nb_players == 2:
-		myteam.add("Joueur 1", dribleurplayerNV0())
-		myteam.add("Joueur 2", GoalplayerNV0())
+		myteam.add("Versatile 1", MultipurposeStrategy())
+		myteam.add("Versalite 2", MultipurposeStrategy())
 	if nb_players == 4:
-		myteam.add("Joueur 1",dribleurplayerNV0())
-		myteam.add("Joueur 2",GoalplayerNV0())
-		myteam.add("Joueur 3",DefenseplayerNV0())
-		myteam.add("Joueur 4",FonceurPlayerNV1optimal())
+		myteam.add("Versatile 1",MultipurposeStrategy())
+		myteam.add("Goal",GoalStrategy())
+		myteam.add("Versatile 2",MultipurposeStrategy())
+		myteam.add("DribleurNaif",DribleStrategy())
 	return myteam	
 
 def get_team_challenge(num):
